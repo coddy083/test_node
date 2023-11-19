@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+  backend:
+    build: .
+    volumes:
+      - .:/server/app
+      - /server/app/node_modules
+    working_dir: /server/app
+    ports:
+      - 8080:8080
+    # env_file:
+    #   - ./server/app/.env
+    command: npm run start
+    restart: always
+
+  # mongodb:
+  #   image: mongo
+  #   container_name: mongodb
+  #   restart: always
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - ./data:/data/db
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: gkqj1004!!
+  #     MONOGO_INITDB_DATABASE: database
+  #   depends_on:
+  #     - backend
+
+  # front:
+  #   build: ./front
+  #   volumes:
+  #     - ./front:/front
+  #     - /front/node_modules
+  #     - /front/.next
+  #   working_dir: /front
+  #   env_file:
+  #     - ./front/.env
+  #   ports:
+  #     - 3000:3000
+  #   command: npm run start
+  #   restart: always
+  #   depends_on:
+  #     - backend
+
+  # python_back:
+  #   build: ./python_back
+  #   volumes:
+  #     - ./python_back:/python_back
+  #   working_dir: /python_back
+  #   ports:
+  #     - 8000:8000
+  #   command: uvicorn main:app --host 0.0.0.0 --reload --port 8000 --workers 4
+  #   restart: always
+  #   depends_on:
+  #     - backend
